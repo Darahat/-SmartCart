@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "716741597267",
+    "project_id": "smartCart-b88cf",
+    "storage_bucket": "smartCart-b88cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716741597267:android:22cbf84132ed25180c4ea6",
+        "android_client_info": {
+          "package_name": "com.example.smartCart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716741597267-ahqfg0lck1jn2rj1gkr9vk7rllnkb037.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLx0MRaowG_f1Sf4ecE9f5r2Dxh_vRsDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716741597267-ahqfg0lck1jn2rj1gkr9vk7rllnkb037.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "716741597267-1snlv6jh3k4918ajkf5kdls8020qtcq6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartCart.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
