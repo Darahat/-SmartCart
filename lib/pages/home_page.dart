@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartCart/components/CardTypeOne.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,22 +38,8 @@ class _HomePageState extends State<HomePage> {
               ),
               for (var content in cardContents)
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        'This is card',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: CardTypeOne(content: content))
             ]),
           ),
         ));
