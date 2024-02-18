@@ -10,18 +10,37 @@ class CardTypeOne extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
-        elevation: 5.0,
+        elevation: 8.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Container(
-          padding: EdgeInsets.all(20),
-          child: Text(
-            content,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16),
-          ),
-        ),
+            color: Colors.white,
+            padding: EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/banana.jpg',
+                      width: 50.0,
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      content,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [],
+                ),
+              ],
+            )),
       ),
     );
   }
