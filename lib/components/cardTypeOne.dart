@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CardTypeOne extends StatelessWidget {
-  final String content;
+  Map<String, dynamic> content;
 
-  const CardTypeOne({required this.content});
+  CardTypeOne({required this.content});
 
   @override
   Widget build(BuildContext context) {
+    print(this.content);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
@@ -30,9 +31,19 @@ class CardTypeOne extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      content,
+                      content['title'] ?? '',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      content['description'] ?? '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey),
                     ),
                   ],
                 ),
