@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartCart/pages/addItemDialog.dart';
+import 'package:smartCart/sql_helper.dart';
 
 class CardTypeOne extends StatelessWidget {
   Map<String, dynamic> content;
@@ -7,7 +9,7 @@ class CardTypeOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.content);
+    print(this.content.length);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
@@ -48,7 +50,25 @@ class CardTypeOne extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  children: [],
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          SQLHelper.deleteItem(content['id'], 'items');
+                        },
+                        icon: Icon(Icons.delete)),
+                    IconButton(
+                        onPressed: () {
+                          // Future<List<Map<String, dynamic>>> data =
+                          //     SQLHelper.getItem(content['id']);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddItemDialog(data: content);
+                            },
+                          );
+                        },
+                        icon: Icon(Icons.edit))
+                  ],
                 ),
               ],
             )),
