@@ -14,6 +14,7 @@ class SQLHelper {
     await database.execute("""CREATE TABLE items(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         title TEXT,
+        imagePath TEXT,
         description TEXT,
         categoryId INTEGER,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -34,6 +35,7 @@ class SQLHelper {
     );
   }
 
+  static Future<void> deleteDatabase() async {}
   // Create new Category (Category)
   static Future<int> createCategory(
       String title, String? descrption, String image) async {
@@ -48,13 +50,15 @@ class SQLHelper {
   static Future<int> createItem(
     // int categoryId
     String title,
-    String? descrption,
+    String? description,
+    String imagePath,
   ) async {
     final db = await SQLHelper.db();
 
     final data = {
       'title': title,
-      'description': descrption,
+      'description': description,
+      'imagePath': imagePath,
       // 'categoryId': categoryId
     };
     final id = await db.insert('items', data,

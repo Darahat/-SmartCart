@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartCart/components/CardTypeOne.dart';
 import 'package:smartCart/pages/addItemDialog.dart';
 import 'package:smartCart/sql_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,16 +23,36 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu),
-        ),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue,
+
+        // leading: IconButton(
+        //   onPressed: () {},
+        //   icon: Icon(Icons.menu),
+        // ),
+
         automaticallyImplyLeading: false,
         title: Text(
-          "Add Item",
-          style: TextStyle(color: Colors.black),
+          "Smart Cart",
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        actions: <Widget>[
+          PopupMenuButton(itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(
+                child: GestureDetector(
+                  child: Text('Add Item'),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddItemDialog();
+                    },
+                  ),
+                ),
+              ),
+            ];
+          })
+        ],
       ),
       body: Center(
         child: Padding(
@@ -39,17 +60,12 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddItemDialog();
-                    },
-                  );
-                },
-                child: Text("+"),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+
+              //   },
+              //   child: Text("+"),
+              // ),
               Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
                     future: SQLHelper.getItems(),

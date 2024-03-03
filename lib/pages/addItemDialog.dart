@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smartCart/sql_helper.dart';
 
 class AddItemDialog extends StatefulWidget {
@@ -16,6 +18,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
   late TextEditingController itemNameController = TextEditingController();
   late TextEditingController itemDescriptionController =
       TextEditingController();
+  File? _imageFile; // Variable to store the selected image file
 
   @override
   void initState() {
@@ -29,9 +32,9 @@ class _AddItemDialogState extends State<AddItemDialog> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.data?['title'] ?? '');
+    print(widget.data);
     return AlertDialog(
-      title: Text("Add Item"),
+      title: Text(widget.data == null ? 'Add Item' : 'Edit Item'),
       content: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -43,6 +46,19 @@ class _AddItemDialogState extends State<AddItemDialog> {
               controller: itemDescriptionController,
               decoration: InputDecoration(labelText: 'Item Description'),
             ),
+            SizedBox(height: 16),
+            _imageFile != null
+                ? Image.file(_imageFile!)
+                : Placeholder(
+                    strokeWidth: 1.0,
+                    fallbackHeight: 50,
+                    child: Icon(Icons.image),
+                  ),
+            ElevatedButton(
+                onPressed: () {
+                  _selectImage(); // Open image picker
+                },
+                child: Text('Select Image'))
           ],
         ),
       ),
@@ -57,15 +73,17 @@ class _AddItemDialogState extends State<AddItemDialog> {
           onPressed: () {
             // Add logic to save the item
             String title = itemNameController.text;
-            String descrption = itemDescriptionController.text;
+            String description = itemDescriptionController.text;
+            String? imagePath = _imageFile?.path;
+
             // print(itemDescription);
             // print(itemName);
             if (widget.data == null) {
-              SQLHelper.createItem(title, descrption);
+              SQLHelper.createItem(title, description, imagePath!);
             } else {
               int id = widget.data?['id'] ?? -1;
               if (id != -1) {
-                SQLHelper.updateItem(id, title, descrption);
+                SQLHelper.updateItem(id, title, description);
               }
             }
 
@@ -75,5 +93,15 @@ class _AddItemDialogState extends State<AddItemDialog> {
         ),
       ],
     );
+  }
+
+  Future<void> _selectImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
   }
 }

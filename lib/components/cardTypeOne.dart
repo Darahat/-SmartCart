@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:smartCart/pages/addItemDialog.dart';
 import 'package:smartCart/sql_helper.dart';
@@ -9,7 +11,7 @@ class CardTypeOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.content.length);
+    print(this.content);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
@@ -24,10 +26,18 @@ class CardTypeOne extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Image.asset(
-                      'assets/images/banana.jpg',
-                      width: 50.0,
-                    )
+                    // Image.asset(
+                    //   'assets/images/banana.jpg',
+                    //   width: 50.0,
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Image.file(
+                        File(content['imagePath']),
+                        fit: BoxFit.cover,
+                        width: 50.0,
+                      ),
+                    ),
                   ],
                 ),
                 Column(
