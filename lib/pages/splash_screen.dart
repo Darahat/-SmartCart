@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rive/rive.dart';
 
 class SplashScreen extends StatefulWidget {
   final Widget? child;
@@ -9,6 +14,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late RiveAnimationController _controller;
+
+  Future<void> _loadRiveFile() async {
+    // Load the Rive file
+    final data = await rootBundle.load('assets/splash_animation.riv');
+    final file = RiveFile.import(data);
+
+    // Extract the animation
+    final animation = file.mainArtboard.animationByName('Animation');
+
+    // Create and initialize the animation controller
+    _controller = SimpleAnimation("animation", autoplay: true);
+    setState(() {});
+  }
+
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
@@ -18,20 +38,19 @@ class _SplashScreenState extends State<SplashScreen> {
           (route) => false);
     });
     super.initState();
+    _loadRiveFile();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          "Welcome To Flutter Firebase",
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
+      backgroundColor: Colors.white,
+      body: Stack(children: [
+        Positioned(child: BackdropFilter(filter: ImageFilter.blur())),
+        RiveAnimation.asset(
+          'assets/RiveAssets/jogging.riv',
         ),
-      ),
+      ]),
     );
   }
 }
